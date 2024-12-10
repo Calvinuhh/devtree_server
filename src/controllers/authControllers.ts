@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { authService } from "../services/authService";
+import { authService } from "../services/authServices";
 
-export const authController = (req: Request, res: Response): void => {
+export const authController = (req: Request, res: Response) => {
   res.json(authService());
 };
 

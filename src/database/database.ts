@@ -3,7 +3,7 @@ import { connect } from "mongoose";
 process.loadEnvFile();
 const { DB_URI } = process.env as { DB_URI: string };
 
-const dbConnect = async (): Promise<void> => {
+const dbConnect = async () => {
   try {
     await connect(DB_URI);
     console.log("database connection successful");
