@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createUser, getUsers } from "../services/usersServices";
+import { createUser, deleteUser, getUsers } from "../services/usersServices";
 import UserInterface from "../interfaces/User.interface";
 
 export const createUserController = async (req: Request, res: Response) => {
@@ -21,6 +21,19 @@ export const getUsersController = async (req: Request, res: Response) => {
     const users: UserInterface[] = await getUsers();
 
     res.status(200).json(users);
+  } catch (error) {
+    const err = error as Error;
+    res.status(400).json(err.message);
+  }
+};
+
+export const deteleUserController = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const user = await deleteUser(id);
+
+    res.status(200).json(user);
   } catch (error) {
     const err = error as Error;
     res.status(400).json(err.message);
