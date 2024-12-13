@@ -4,12 +4,15 @@ import UserInterface from "../interfaces/User.interface";
 
 export const createUserController = async (req: Request, res: Response) => {
   try {
-    const { name, email, password }: UserInterface = req.body;
-    if (!name || !email || !password) throw Error("Missing field");
+    const { name, email, password, handle }: UserInterface = req.body;
 
-    const newUser = await createUser({ name, email, password });
+    for (const key in req.body) {
+      if (!req.body[key]) throw Error(`Missing field: ${key}`);
+    }
 
-    res.status(200).json(newUser);
+    const newUser = await createUser({ handle, name, email, password });
+
+    res.status(201).json(newUser);
   } catch (error) {
     const err = error as Error;
     res.status(400).json(err.message);
@@ -23,7 +26,7 @@ export const getUsersController = async (req: Request, res: Response) => {
     res.status(200).json(users);
   } catch (error) {
     const err = error as Error;
-    res.status(400).json(err.message);
+    res.status(404).json(err.message);
   }
 };
 
@@ -33,9 +36,11 @@ export const deteleUserController = async (req: Request, res: Response) => {
 
     const user = await deleteUser(id);
 
-    res.status(200).json(user);
+    res
+      .status(200)
+      .json(`User ${user.name} with email: ${user.email} was deleted`);
   } catch (error) {
     const err = error as Error;
-    res.status(400).json(err.message);
+    res.status(404).json(err.message);
   }
 };

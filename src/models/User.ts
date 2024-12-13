@@ -3,6 +3,13 @@ import UserInterface from "../interfaces/User.interface";
 
 const userSchema = new Schema<UserInterface>(
   {
+    handle: {
+      type: String,
+      required: true,
+      trim: true,
+      lowercase: true,
+      unique: true,
+    },
     name: {
       type: String,
       required: true,
@@ -13,6 +20,7 @@ const userSchema = new Schema<UserInterface>(
       required: true,
       trim: true,
       unique: true,
+      lowercase: true,
     },
     password: {
       type: String,
