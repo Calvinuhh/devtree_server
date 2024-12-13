@@ -1,11 +1,13 @@
 import { Request, Response } from "express";
-import { authService } from "../services/authServices";
+import { createUser } from "../services/authServices";
 
-export const authController = (req: Request, res: Response) => {
-  res.json(authService());
-};
+export const createUserController = async (req: Request, res: Response) => {
+  try {
+    const newUser = await createUser(req.body);
 
-export const authPostController = (req: Request, res: Response) => {
-  res.json(req.body);
-  console.log(req.body);
+    res.status(201).json(newUser);
+  } catch (error) {
+    const err = error as Error;
+    res.status(400).json(err.message);
+  }
 };

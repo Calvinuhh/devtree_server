@@ -1,12 +1,9 @@
 import { Router } from "express";
-import {
-  authController,
-  authPostController,
-} from "../../controllers/authControllers";
+import { createUserController } from "../../controllers/authControllers";
+import { validateUser } from "../../middlewares/authValidator";
 
 const auth: Router = Router();
 
-auth.get("/register", authController);
-auth.post("/register", authPostController);
+auth.post("/register", validateUser, createUserController);
 
 export default auth;
