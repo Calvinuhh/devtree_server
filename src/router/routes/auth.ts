@@ -1,9 +1,16 @@
 import { Router } from "express";
-import { createUserController } from "../../controllers/authControllers";
-import { validateUser } from "../../middlewares/authValidator";
+import {
+  createUserController,
+  loginController,
+} from "../../controllers/authControllers";
+import {
+  validateUserLogin,
+  validateUserRegister,
+} from "../../middlewares/authValidator";
 
 const auth: Router = Router();
 
-auth.post("/register", validateUser, createUserController);
+auth.post("/register", validateUserRegister, createUserController);
+auth.post("/login", validateUserLogin, loginController);
 
 export default auth;

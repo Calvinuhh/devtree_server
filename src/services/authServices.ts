@@ -20,3 +20,8 @@ export const createUser = async (params: IUser) => {
 
   return newUser;
 };
+
+export const login = async () => {
+
+
+}
