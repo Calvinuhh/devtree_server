@@ -1,10 +1,10 @@
-import UserInterface from "../interfaces/User.interface";
+import { IUser } from "../interfaces/User.interface";
 import User from "../models/User";
 import slug from "slug";
 import { hashPassword } from "../utils/hashPassword";
 
-export const createUser = async (params: UserInterface) => {
-  const { handle, email, name, password } = params;
+export const createUser = async (params: IUser) => {
+  const { handle, email, name, password }: IUser = params;
 
   const newHandle = slug(handle, "");
   const handleExists = await User.findOne({ handle: newHandle });

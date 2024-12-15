@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
-import UserInterface from "../interfaces/User.interface";
+import UserModel from "../interfaces/User.interface";
 
-const userSchema = new Schema<UserInterface>(
+const userSchema = new Schema<UserModel>(
   {
     handle: {
       type: String,
@@ -9,11 +9,16 @@ const userSchema = new Schema<UserInterface>(
       trim: true,
       lowercase: true,
       unique: true,
+      minlength: 2,
+      maxlength: 40,
     },
     name: {
       type: String,
       required: true,
       trim: true,
+      minlength: 2,
+      maxlength: 30,
+      match: /^[a-zA-Z\s]+$/,
     },
     email: {
       type: String,
@@ -21,11 +26,15 @@ const userSchema = new Schema<UserInterface>(
       trim: true,
       unique: true,
       lowercase: true,
+      match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
     },
     password: {
       type: String,
       required: true,
       trim: true,
+      minlength: 6,
+      match:
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/,
     },
   },
   {
@@ -33,6 +42,6 @@ const userSchema = new Schema<UserInterface>(
   }
 );
 
-const User = model<UserInterface>("user", userSchema);
+const User = model<UserModel>("user", userSchema);
 
 export default User;
