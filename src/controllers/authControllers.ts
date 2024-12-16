@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { createUser } from "../services/authServices";
-import { IUser } from "../interfaces/User.interface";
+import { createUser, login } from "../services/authServices";
+import { IUser, LoginData } from "../interfaces/User.interface";
 
 export const createUserController = async (req: Request, res: Response) => {
   try {
@@ -8,7 +8,7 @@ export const createUserController = async (req: Request, res: Response) => {
 
     const newUser = await createUser({ email, handle, name, password });
 
-    res.status(201).json(newUser);
+    if (newUser) res.status(201).json("Record created successfully");
   } catch (error) {
     const err = error as Error;
     res.status(400).json(err.message);
@@ -17,12 +17,13 @@ export const createUserController = async (req: Request, res: Response) => {
 
 export const loginController = async (req: Request, res: Response) => {
   try {
+    const { email, password }: LoginData = req.body;
 
-    
+    const check = await login(email, password);
 
-    
+    if (check) res.status(200).json("Authenticated");
   } catch (error) {
     const err = error as Error;
-    res.status(404).json(err.message);
+    res.status(401).json(err.message);
   }
 };

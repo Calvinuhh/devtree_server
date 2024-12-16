@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { IUser, LoginData } from "../interfaces/User.interface";
-import User from "../models/User";
 import {
   onlyStrings,
   securePassword,
@@ -24,10 +23,6 @@ export const validateUserRegister = async (
     if (!name) throw Error("Name is required");
     if (!handle) throw Error("handle is required");
     if (!password) throw Error("password is required");
-
-    const emailExists = await User.findOne({ email });
-    if (emailExists)
-      throw Error(`User with email: ${emailExists.email} already exists`);
 
     validateEmail(email);
     onlyStrings(name, "name");
@@ -56,9 +51,6 @@ export const validateUserLogin = async (
 
     if (!email) throw Error("Email is required");
     if (!password) throw Error("password is required");
-
-    const emailExists = await User.findOne({ email });
-    if (!emailExists) throw Error("Email not registered");
 
     validateEmail(email);
 

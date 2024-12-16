@@ -1,4 +1,4 @@
-import UserModel, { IUser } from "../interfaces/User.interface";
+import UserModel from "../interfaces/User.interface";
 import User from "../models/User";
 
 export const getUsers = async () => {
@@ -9,7 +9,7 @@ export const getUsers = async () => {
 };
 
 export const deleteUser = async (id: string) => {
-  const user: IUser | null = await User.findByIdAndDelete(id);
+  const user: UserModel | null = await User.findByIdAndDelete(id);
   if (!user) throw Error("User not found");
 
   return user;

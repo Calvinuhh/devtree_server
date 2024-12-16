@@ -1,15 +1,17 @@
+import hashPassword from "../utils/hashPassword";
+import checkPassword from "../utils/checkPassword";
+import checkEmailExists from "../utils/checkEmailExists";
+import { createHandle, manageHandle } from "../utils/manageHandle";
 import { IUser } from "../interfaces/User.interface";
 import User from "../models/User";
-import slug from "slug";
-import { hashPassword } from "../utils/hashPassword";
 
 export const createUser = async (params: IUser) => {
   const { handle, email, name, password }: IUser = params;
 
-  const newHandle = slug(handle, "");
-  const handleExists = await User.findOne({ handle: newHandle });
+  await checkEmailExists(email);
 
-  if (handleExists) throw Error(`Handle: ${newHandle} is already taken`);
+  const newHandle = createHandle(handle);
+  await manageHandle(newHandle);
 
   const newUser = await User.create({
     handle: newHandle,
@@ -21,7 +23,13 @@ export const createUser = async (params: IUser) => {
   return newUser;
 };
 
-export const login = async () => {
+export const login = async (email: string, password: string) => {
+  const user = await User.findOne({ email });
+  if (!user) throw Error("User not registered");
 
+  const result = await checkPassword(password, user.password);
 
-}
+  if (!result) throw Error("Incorrect data");
+
+  return result;
+};
