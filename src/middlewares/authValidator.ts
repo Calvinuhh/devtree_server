@@ -19,10 +19,10 @@ export const validateUserRegister = async (
       if (!req.body[key]) throw Error(`Field: ${key} is empty`);
     }
 
-    if (!email) throw Error("Email is required");
-    if (!name) throw Error("Name is required");
-    if (!handle) throw Error("handle is required");
-    if (!password) throw Error("password is required");
+    if (!email) throw Error("Email es requerido");
+    if (!name) throw Error("Name es requerido");
+    if (!handle) throw Error("handle es requerido");
+    if (!password) throw Error("password es requerido");
 
     validateEmail(email);
     onlyStrings(name, "name");
@@ -46,11 +46,11 @@ export const validateUserLogin = async (
     const { email, password }: LoginData = req.body;
 
     for (const key in req.body) {
-      if (!req.body[key]) throw Error(`Field: ${key} is empty`);
+      if (!req.body[key]) throw Error(`Campo: ${key} esta vacio`);
     }
 
-    if (!email) throw Error("Email is required");
-    if (!password) throw Error("password is required");
+    if (!email) throw Error("Email es requerido");
+    if (!password) throw Error("password es requerido");
 
     validateEmail(email);
 

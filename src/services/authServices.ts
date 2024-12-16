@@ -25,11 +25,11 @@ export const createUser = async (params: IUser) => {
 
 export const login = async (email: string, password: string) => {
   const user = await User.findOne({ email });
-  if (!user) throw Error("User not registered");
+  if (!user) throw Error("Usuario no registrado");
 
   const result = await checkPassword(password, user.password);
 
-  if (!result) throw Error("Incorrect data");
+  if (!result) throw Error("Datos incorrectos");
 
   return result;
 };

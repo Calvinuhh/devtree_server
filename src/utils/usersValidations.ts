@@ -9,7 +9,7 @@ export const onlyStrings = (param: string, input: string) => {
 
   if (!regex.test(param))
     throw Error(
-      `In input ${input} are only allowed letters, no numbers or special characters`
+      `En el campo ${input} Solo esta permitido letras, no numeros o caracteres especiales`
     );
 };
 
@@ -20,7 +20,7 @@ export const validateLenghtFromTo = (
   num2: number
 ) => {
   if (param.length < num1 || param.length > num2)
-    throw Error(`${input} length must be between ${num1} and ${num2}`);
+    throw Error(`La longitud de ${input} debe ser entre ${num1} y ${num2}`);
 };
 
 export const securePassword = (
@@ -33,6 +33,6 @@ export const securePassword = (
 
   if (!regex.test(param))
     throw Error(
-      `${input} must be at least ${minLength} characters long, upper and lower case, a number and a special character.`
+      `${input} debe tener al menos ${minLength} caracteres de longitud, minusculas y mayusculas, un numero y un caracter especial.`
     );
 };
