@@ -5,7 +5,7 @@ import {
   securePassword,
   validateEmail,
   validateLenghtFromTo,
-} from "../utils/usersValidations";
+} from "../utils/usersInputsValidations";
 
 export const validateUserRegister = async (
   req: Request,

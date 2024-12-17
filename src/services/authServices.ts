@@ -1,9 +1,9 @@
-import hashPassword from "../utils/hashPassword";
-import checkPassword from "../utils/checkPassword";
+import { hashPassword, checkPassword } from "../utils/checkAndHashPassword";
 import checkEmailExists from "../utils/checkEmailExists";
 import { createHandle, manageHandle } from "../utils/manageHandle";
 import { IUser } from "../interfaces/User.interface";
 import User from "../models/User";
+import generateJWT from "../utils/jwt";
 
 export const createUser = async (params: IUser) => {
   const { handle, email, name, password }: IUser = params;
@@ -24,12 +24,14 @@ export const createUser = async (params: IUser) => {
 };
 
 export const login = async (email: string, password: string) => {
+  
   const user = await User.findOne({ email });
-  if (!user) throw Error("Usuario no registrado");
+  if (!user) throw Error("El usuario no existe");
 
   const result = await checkPassword(password, user.password);
-
   if (!result) throw Error("Datos incorrectos");
 
-  return result;
+  const token = generateJWT({ id: user._id });
+
+  return token;
 };

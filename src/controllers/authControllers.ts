@@ -11,7 +11,7 @@ export const createUserController = async (req: Request, res: Response) => {
     if (newUser) res.status(201).json("Registro creado correctamente");
   } catch (error) {
     const err = error as Error;
-    res.status(400).json(err.message);
+    res.status(409).json(err.message);
   }
 };
 
@@ -21,7 +21,7 @@ export const loginController = async (req: Request, res: Response) => {
 
     const check = await login(email, password);
 
-    if (check) res.status(200).json("Autenticado");
+    if (check) res.status(200).json(check);
   } catch (error) {
     const err = error as Error;
     res.status(401).json(err.message);
