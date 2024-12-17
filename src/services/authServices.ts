@@ -3,7 +3,7 @@ import checkEmailExists from "../utils/checkEmailExists";
 import { createHandle, manageHandle } from "../utils/manageHandle";
 import { IUser } from "../interfaces/User.interface";
 import User from "../models/User";
-import generateJWT from "../utils/jwt";
+import { generateJWT } from "../utils/jwt";
 
 export const createUser = async (params: IUser) => {
   const { handle, email, name, password }: IUser = params;
@@ -24,7 +24,6 @@ export const createUser = async (params: IUser) => {
 };
 
 export const login = async (email: string, password: string) => {
-  
   const user = await User.findOne({ email });
   if (!user) throw Error("El usuario no existe");
 
@@ -34,4 +33,12 @@ export const login = async (email: string, password: string) => {
   const token = generateJWT({ id: user._id });
 
   return token;
+};
+
+export const getUserById = async (id: string) => {
+  const user = await User.findById(id).select("-password");
+
+  if (!user) throw Error("Usuario no encontrado");
+
+  return user;
 };

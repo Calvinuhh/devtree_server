@@ -14,6 +14,6 @@ server.use(
 );
 server.use(json());
 
-server.use("/api", router);
+server.use(router);
 
 export default server;

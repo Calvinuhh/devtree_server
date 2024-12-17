@@ -19,9 +19,18 @@ export const loginController = async (req: Request, res: Response) => {
   try {
     const { email, password }: LoginData = req.body;
 
-    const check = await login(email, password);
+    const token = await login(email, password);
 
-    if (check) res.status(200).json(check);
+    if (token) res.status(200).json(token);
+  } catch (error) {
+    const err = error as Error;
+    res.status(401).json(err.message);
+  }
+};
+
+export const getUserController = async (req: Request, res: Response) => {
+  try {
+    res.status(200).json(req.user);
   } catch (error) {
     const err = error as Error;
     res.status(401).json(err.message);
