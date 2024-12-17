@@ -36,6 +36,12 @@ const userSchema = new Schema<UserModel>(
       match:
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/,
     },
+    description: {
+      type: String,
+      trim: true,
+      maxlength: 500,
+      default: "",
+    },
   },
   {
     versionKey: false,
