@@ -36,3 +36,8 @@ export const securePassword = (
       `${input} debe tener al menos ${minLength} caracteres de longitud, minusculas y mayusculas, un numero y un caracter especial.`
     );
 };
+
+export const validateMaxLength = (input: string, key: string) => {
+  if (input.length > 500)
+    throw Error(`La longitud de ${key} no puede ser superior a 500`);
+};

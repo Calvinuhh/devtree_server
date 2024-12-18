@@ -16,7 +16,7 @@ export const validateUserRegister = async (
     const { email, name, handle, password }: IUser = req.body;
 
     for (const key in req.body) {
-      if (!req.body[key]) throw Error(`Field: ${key} is empty`);
+      if (!req.body[key]) throw Error(`Campo: ${key} esta vacio`);
     }
 
     if (!email) throw Error("Email es requerido");

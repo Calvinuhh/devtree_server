@@ -7,7 +7,7 @@ import {
 import {
   validateUserLogin,
   validateUserRegister,
-} from "../../middlewares/inputsValidator";
+} from "../../middlewares/inputsValidations";
 import { authorization } from "../../middlewares/authorization";
 
 const auth: Router = Router();
