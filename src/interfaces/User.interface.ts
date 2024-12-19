@@ -5,6 +5,7 @@ export default interface UserModel {
   email: string;
   password: string;
   description?: string;
+  image?: string;
 }
 
 export type IUser = Omit<UserModel, "_id">;

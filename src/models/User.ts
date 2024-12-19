@@ -39,7 +39,11 @@ const userSchema = new Schema<UserModel>(
     description: {
       type: String,
       trim: true,
-      maxlength: 500,
+      maxlength: 100,
+      default: "",
+    },
+    image: {
+      type: String,
       default: "",
     },
   },

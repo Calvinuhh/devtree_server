@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { UpdateProfile } from "../interfaces/User.interface";
-import { validateMaxLength } from "../utils/usersInputsValidations";
+import {
+  validateLenghtFromTo,
+  validateMaxLength,
+} from "../utils/usersInputsValidations";
 import { Types } from "mongoose";
 
 export const validatePatchInputs = (
@@ -15,14 +18,8 @@ export const validatePatchInputs = (
     if (!Types.ObjectId.isValid(id))
       throw Error("El ID ingresado no es valido");
 
-    for (const key in req.body) {
-      if (!req.body[key]) throw Error(`Campo ${key} esta vacio`);
-    }
-
-    if (!handle) throw Error("Handle es requerido");
-    if (!description) throw Error("Description es requerido");
-
-    validateMaxLength(description, "descripcion");
+    if (handle) validateLenghtFromTo(handle, "handle", 2, 40);
+    if (description) validateMaxLength(description, 100, "descripcion");
 
     next();
   } catch (error) {

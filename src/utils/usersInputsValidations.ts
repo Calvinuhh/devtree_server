@@ -37,7 +37,11 @@ export const securePassword = (
     );
 };
 
-export const validateMaxLength = (input: string, key: string) => {
-  if (input.length > 500)
-    throw Error(`La longitud de ${key} no puede ser superior a 500`);
+export const validateMaxLength = (
+  input: string,
+  value: number,
+  key: string
+) => {
+  if (input.length > value)
+    throw Error(`La longitud de ${key} no puede ser superior a ${value}`);
 };
