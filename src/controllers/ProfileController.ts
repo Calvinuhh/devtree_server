@@ -5,10 +5,10 @@ import cloudinary from "../cloudinary/cloudinary";
 
 export const patchProfileController = async (req: Request, res: Response) => {
   try {
-    const { handle, description } = req.body;
+    const { handle, description, links } = req.body;
     const { id } = req.params;
 
-    const patchUser = await patchProfile(id, handle, description);
+    const patchUser = await patchProfile(id, handle, description, links);
 
     if (patchUser) res.status(200).json("Perfil actualizado correctamente");
   } catch (error) {
@@ -37,7 +37,7 @@ export const uploadImageController = async (req: Request, res: Response) => {
 
         cloudinary.uploader.upload(
           files.file[0].filepath,
-          { folder: "devtree" },
+          { folder: "devtree", type: "private" },
           async (error, result) => {
             if (error) throw Error("Error al subir la imagen");
             if (result) {

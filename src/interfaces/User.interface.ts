@@ -6,6 +6,7 @@ export default interface UserModel {
   password: string;
   description?: string;
   image?: string;
+  links?: string;
 }
 
 export type IUser = Omit<UserModel, "_id">;
@@ -14,4 +15,4 @@ export type LoginData = Pick<UserModel, "email" | "password">;
 
 export type UserRequest = Omit<UserModel, "password">;
 
-export type UpdateProfile = Pick<UserModel, "description" | "handle">;
+export type UpdateProfile = Pick<UserModel, "description" | "handle" | "links">;

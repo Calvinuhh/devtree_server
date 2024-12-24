@@ -46,6 +46,10 @@ const userSchema = new Schema<UserModel>(
       type: String,
       default: "",
     },
+    links: {
+      type: String,
+      default: "[]",
+    },
   },
   {
     versionKey: false,

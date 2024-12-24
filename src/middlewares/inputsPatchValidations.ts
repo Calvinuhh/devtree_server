@@ -5,6 +5,7 @@ import {
   validateMaxLength,
 } from "../utils/usersInputsValidations";
 import { Types } from "mongoose";
+import { isValidURL } from "../utils/checkValidUrl";
 
 export const validatePatchInputs = (
   req: Request,
@@ -12,7 +13,7 @@ export const validatePatchInputs = (
   next: NextFunction
 ) => {
   try {
-    const { handle, description }: UpdateProfile = req.body;
+    const { handle, description, links }: UpdateProfile = req.body;
     const { id } = req.params;
 
     if (!Types.ObjectId.isValid(id))
@@ -20,6 +21,7 @@ export const validatePatchInputs = (
 
     if (handle) validateLenghtFromTo(handle, "handle", 2, 40);
     if (description) validateMaxLength(description, 100, "descripcion");
+    if (links) isValidURL(links);
 
     next();
   } catch (error) {

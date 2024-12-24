@@ -5,7 +5,8 @@ import { createHandle, manageHandle } from "../utils/manageHandle";
 export const patchProfile = async (
   id: string,
   handle: string,
-  description: string
+  description: string,
+  links: string
 ) => {
   const updatedFields: Partial<UpdateProfile> = {};
 
@@ -19,9 +20,13 @@ export const patchProfile = async (
     updatedFields.description = description;
   }
 
+  if (links) {
+    updatedFields.links = links;
+  }
+
   const updatedUser = await User.findByIdAndUpdate(id, updatedFields, {
     new: true,
-  }).select("-password -name -email -_id");
+  }).select("-password -name -email -_id ");
 
   if (!updatedUser) throw Error("Usuario no encontrado");
 
