@@ -1,6 +1,5 @@
 import { JwtPayload, verify, sign } from "jsonwebtoken";
 
-process.loadEnvFile();
 const { JWT_SECRET } = process.env as { JWT_SECRET: string };
 
 export const generateJWT = (payload: JwtPayload) => {

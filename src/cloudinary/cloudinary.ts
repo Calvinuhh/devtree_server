@@ -1,6 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
 
-process.loadEnvFile();
 const { CLOUD_NAME, API_KEY, API_SECRET } = process.env;
 
 cloudinary.config({
