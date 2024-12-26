@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon src/index.ts",
     "devNoWarnings": "nodemon --watch src --exec \"node --no-warnings -r ts-node/register\" src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "author": "calvin_howard",
   "license": "ISC",

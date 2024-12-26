@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getUserByHandle } from "../services/handle";
+import { getUserByHandle, searchByHandle } from "../services/handleServices";
 
 export const handleController = async (req: Request, res: Response) => {
   try {
@@ -14,5 +14,18 @@ export const handleController = async (req: Request, res: Response) => {
   } catch (error) {
     const err = error as Error;
     res.status(400).json(err.message);
+  }
+};
+
+export const searchByHandleController = async (req: Request, res: Response) => {
+  try {
+    const { handle } = req.body;
+
+    const handleSearch = await searchByHandle(handle);
+
+    if (!handleSearch) res.status(200).json("El nickname esta disponible");
+  } catch (error) {
+    const err = error as Error;
+    res.status(409).json(err.message);
   }
 };
